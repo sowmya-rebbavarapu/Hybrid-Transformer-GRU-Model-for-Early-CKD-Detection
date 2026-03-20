@@ -2,94 +2,204 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CKD Prediction System</title>
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary: #4F46E5;
+            --primary-hover: #4338CA;
+            --bg-gradient-start: #0f172a;
+            --bg-gradient-end: #1e1b4b;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-main: #f8fafc;
+            --text-muted: #cbd5e1;
+        }
+
         body {
-            font-family: 'Segoe UI', sans-serif;
-            background: linear-gradient(to right, #e3f2fd, #f1f8ff);
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+            color: var(--text-main);
             margin: 0;
             padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .container {
-            max-width: 800px;
-            margin: 60px auto;
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0px 10px 25px rgba(0,0,0,0.1);
-            text-align: center;
+            width: 90%;
+            max-width: 900px;
+            margin: 40px auto;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         h1 {
-            color: #1565c0;
-            margin-bottom: 20px;
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 30px;
+            background: linear-gradient(to right, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .instructions {
-            background: #fff3cd;
-            padding: 15px;
-            border-left: 5px solid #ff9800;
-            border-radius: 6px;
-            text-align: left;
-            margin-bottom: 25px;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 25px;
+            border-left: 4px solid #818cf8;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border: 1px solid var(--glass-border);
+            border-left: 4px solid #818cf8;
+            transition: transform 0.3s ease;
+        }
+
+        .instructions:hover {
+            transform: translateY(-2px);
         }
 
         .instructions h3 {
             margin-top: 0;
-            color: #e65100;
+            color: #a5b4fc;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .instructions ul {
+            list-style: none;
+            padding: 0;
         }
 
         .instructions li {
-            font-size: 14px;
-            margin-bottom: 6px;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .instructions li::before {
+            content: "✨";
+            margin-right: 10px;
+            font-size: 0.9em;
+        }
+
+        .upload-form {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .file-upload-wrapper {
+            position: relative;
+            margin-bottom: 20px;
         }
 
         input[type="file"] {
-            margin-top: 20px;
-            padding: 10px;
+            display: none;
+        }
+
+        .custom-file-upload {
+            display: inline-block;
+            padding: 16px 32px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px dashed #818cf8;
+            border-radius: 12px;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .custom-file-upload:hover {
+            background: rgba(129, 140, 248, 0.1);
+            color: white;
+            border-color: #a5b4fc;
         }
 
         button {
-            margin-top: 20px;
-            padding: 12px 25px;
-            background: #1565c0;
+            padding: 14px 36px;
+            background: linear-gradient(135deg, var(--primary), #818cf8);
             color: white;
-            font-size: 16px;
+            font-size: 1.1rem;
+            font-weight: 600;
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4);
         }
 
         button:hover {
-            background: #0d47a1;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(79, 70, 229, 0.6);
         }
 
         .result {
-            margin-top: 25px;
-            padding: 15px;
-            background: #e8f5e9;
-            border-left: 5px solid #2e7d32;
-            border-radius: 6px;
+            margin-top: 40px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .result h3 {
+            color: #a5b4fc;
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .glass-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(255, 255, 255, 0.03);
             text-align: left;
         }
 
-        table {
-            width: 100%;
-            margin-top: 15px;
-            border-collapse: collapse;
+        .glass-table th, .glass-table td {
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        th, td {
-            padding: 10px;
-            border: 1px solid #ddd;
-            text-align: center;
+        .glass-table th {
+            background: rgba(0, 0, 0, 0.2);
+            font-weight: 600;
+            color: #818cf8;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
         }
 
-        th {
-            background-color: #1565c0;
-            color: white;
+        .glass-table tbody tr {
+            transition: background 0.2s ease;
+        }
+
+        .glass-table tbody tr:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-table td:nth-child(2) {
+            font-weight: 600;
         }
     </style>
 </head>
@@ -97,33 +207,50 @@
 <body>
 
 <div class="container">
-    <h1>CKD Prediction using CSV / Excel</h1>
+    <h1>Kidney Disease Prediction</h1>
 
     <div class="instructions">
-        <h3>📄 File Upload Instructions</h3>
+        <h3><span style="font-size:1.5rem">📄</span> Upload Instructions</h3>
         <ul>
-            <li>Upload a <b>CSV or Excel file</b> with patient data</li>
-            <li>File must contain the <b>same 30 selected features</b></li>
-            <li>Binary values: <b>1 = Yes, 0 = No</b></li>
-            <li>Ensure column names match training dataset</li>
-            <li>Each row = one patient</li>
+            <li>Upload a CSV or Excel file containing patient records.</li>
+            <li>Ensure the file has the correct 30 clinical features.</li>
+            <li>Categorical values should be encoded (e.g., 1 = Yes, 0 = No).</li>
+            <li>Each row corresponds to one patient's diagnostic data.</li>
         </ul>
     </div>
 
-    <form method="POST" enctype="multipart/form-data">
-        <input type="file" name="file" accept=".csv, .xlsx" required>
-        <br>
-        <button type="submit">Upload & Predict</button>
+    <form class="upload-form" method="POST" enctype="multipart/form-data">
+        <div class="file-upload-wrapper">
+            <label for="file-upload" class="custom-file-upload">
+                <span id="file-name">📂 Choose CSV / Excel file</span>
+            </label>
+            <input id="file-upload" type="file" name="file" accept=".csv, .xlsx" required onchange="updateFileName()">
+        </div>
+        <button type="submit">Predict Outcomes</button>
     </form>
 
     {% if table %}
     <div class="result">
-        <h3>📊 Prediction Results</h3>
-        {{ table | safe }}
+        <h3>Analysis Results</h3>
+        <div class="table-container">
+            {{ table | safe }}
+        </div>
     </div>
     {% endif %}
 
 </div>
+
+<script>
+    function updateFileName() {
+        const input = document.getElementById('file-upload');
+        const fileNameDisplay = document.getElementById('file-name');
+        if (input.files && input.files.length > 0) {
+            fileNameDisplay.textContent = '📄 ' + input.files[0].name;
+        } else {
+            fileNameDisplay.textContent = '📂 Choose CSV / Excel file';
+        }
+    }
+</script>
 
 </body>
 </html>

@@ -43,18 +43,21 @@ class CKDPreprocessor:
 
         return X_scaled
 
-    def preprocess(self, X, y):
+    def preprocess(self, X, y=None):
         print("\n[PREPROCESSING] Starting preprocessing pipeline...")
 
         X = self.handle_missing_values(X)
         X = self.encode_categorical(X)
         X_scaled = self.scale_features(X)
 
-        y = LabelEncoder().fit_transform(y)
+        if y is not None:
+            y = LabelEncoder().fit_transform(y)
+            print("Target labels encoded")
+            print("Final target shape:", y.shape)
+        else:
+            print("No target labels provided (inference mode)")
 
-        print("Target labels encoded")
         print("Final feature shape:", X_scaled.shape)
-        print("Final target shape:", y.shape)
 
         return X_scaled, y
 if __name__ == "__main__":
