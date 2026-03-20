@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CKD Prediction System</title>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to right, #e3f2fd, #f1f8ff);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 60px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0px 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #1565c0;
+            margin-bottom: 20px;
+        }
+
+        .instructions {
+            background: #fff3cd;
+            padding: 15px;
+            border-left: 5px solid #ff9800;
+            border-radius: 6px;
+            text-align: left;
+            margin-bottom: 25px;
+        }
+
+        .instructions h3 {
+            margin-top: 0;
+            color: #e65100;
+        }
+
+        .instructions li {
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        input[type="file"] {
+            margin-top: 20px;
+            padding: 10px;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 12px 25px;
+            background: #1565c0;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0d47a1;
+        }
+
+        .result {
+            margin-top: 25px;
+            padding: 15px;
+            background: #e8f5e9;
+            border-left: 5px solid #2e7d32;
+            border-radius: 6px;
+            text-align: left;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 15px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background-color: #1565c0;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>CKD Prediction using CSV / Excel</h1>
+
+    <div class="instructions">
+        <h3>📄 File Upload Instructions</h3>
+        <ul>
+            <li>Upload a <b>CSV or Excel file</b> with patient data</li>
+            <li>File must contain the <b>same 30 selected features</b></li>
+            <li>Binary values: <b>1 = Yes, 0 = No</b></li>
+            <li>Ensure column names match training dataset</li>
+            <li>Each row = one patient</li>
+        </ul>
+    </div>
+
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".csv, .xlsx" required>
+        <br>
+        <button type="submit">Upload & Predict</button>
+    </form>
+
+    {% if table %}
+    <div class="result">
+        <h3>📊 Prediction Results</h3>
+        {{ table | safe }}
+    </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>
