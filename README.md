@@ -43,8 +43,8 @@ Data → Preprocessing → Feature Selection → Transformer → GRU → Classif
 ## ⚙️ Installation
 
 ```bash
-git clone https://github.com/your-username/ckd-transformer-gru.git
-cd ckd-transformer-gru
+git clone https://github.com/sowmya-rebbavarapu/Hybrid-Transformer-GRU-Model-for-Early-CKD-Detection.git
+cd Hybrid-Transformer-GRU-Model-for-Early-CKD-Detection
 ```
 
 ### Create Virtual Environment
